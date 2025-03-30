@@ -1,6 +1,9 @@
-import { useState } from 'react';
-import { CalculatorMode, CalculatorModes } from '../types/types';
-import { ToggleSwitch } from './ToggleSwitch';
+import React from 'react';
+import {useState} from 'react';
+import {CalculatorMode, CalculatorModes} from '../types/types';
+import {ToggleSwitch} from './ToggleSwitch';
+import MathCalc from "./MathCalc";
+import CurrencyCalc from "./CurrencyCalc";
 
 export const Calculator: React.FC = () => {
     const [mode, setMode] = useState<CalculatorMode>(CalculatorModes.CURRENCY);
@@ -9,12 +12,12 @@ export const Calculator: React.FC = () => {
     };
 
     return (
-        <div className="max-w-sm mx-auto rounded-3xl bg-gray-100 overflow-hidden shadow-sm font-inter">
+        <div className="max-w-sm mx-auto rounded-3xl bg-gray-100 overflow-hidden shadow-sm font-inter font-light">
             <div className="px-3 pt-6">
                 <ToggleSwitch mode={mode} onSwitch={handleModeChange}/>
             </div>
-            <div className="px-4 py-10">
-                Calc - {mode}
+            <div>
+                {mode === 'math' ? <MathCalc /> : <CurrencyCalc/>}
             </div>
         </div>
     );
