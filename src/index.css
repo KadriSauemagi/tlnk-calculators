@@ -1,9 +1,10 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
+@import "tailwindcss";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+
+@theme {
+  --font-inter: "Inter", "system-ui", "Avenir", "Helvetica", "Arial", "sans-serif";
+  --color-tlnk-blue: #316BFF;
+  --color-tlnk-red: #E94747;
+  --color-tlnk-green: #6FCF97;
 }
