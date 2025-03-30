@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Keypad from './Keypad';
-import { CalculatorModes } from '../types/types';
+import {CalculatorModes} from '../types/types';
 import formatNumberString from "../utils/formatNumber";
 
 interface Rates {
@@ -41,21 +41,24 @@ const CurrencyCalculator: React.FC = () => {
       const conversionRate = rates?.[targetCurrency]?.[sourceCurrency];
       const result = parseFloat(amount) * conversionRate;
       setConverted(result.toFixed(2));
-    } else if (targetCurrency === sourceCurrency ) {
+    } else if (targetCurrency === sourceCurrency) {
       setConverted(amount);
     } else {
       setConverted('');
     }
-  }, [amount, sourceCurrency, targetCurrency, rates]);
+  });
 
   const handleKeypadPress = (value: string) => {
-    if (amount.length > 10) return;
-    if (value === 'clear') {
+    if (value === 'equals') return;
+
+    else if (value === 'clear') {
       setAmount('');
       setConverted('');
+      return;
     } else if (value === 'backspace') {
       setAmount(prev => prev.slice(0, -1));
-    } else {
+      return;
+    } else if (amount.length <= 10) {
       setAmount(prev => prev + value);
     }
   };
@@ -73,47 +76,63 @@ const CurrencyCalculator: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       <div className="grow flex flex-col h-full">
-      <div className="grow flex flex-col gap-6 p-6 justify-center">
-        <div className="grid grid-cols-2 items-center gap-2 min-h-[38px]">
-          <select
-            id="sourceCurrency"
-            value={sourceCurrency}
-            onChange={e => setSourceCurrency(e.target.value)}
-            className="text-xl cursor-pointer"
-          >
-            {Object.keys(rates).map(curr => (
-              <option key={curr} value={curr}>
-                {curr}
-              </option>
-            ))}
-          </select>
-          <div className="text-tlnk-blue text-3xl place-self-end">{formatNumberString(amount)}</div>
+        <div className="grow flex flex-col gap-2 p-6 justify-center">
+          <div className="flex items-baseline justify-between gap-2 min-h-[38px]">
+            <div className="relative w-1/2">
+              <select
+                id="sourceCurrency"
+                value={sourceCurrency}
+                onChange={e => setSourceCurrency(e.target.value)}
+                className="text-xl cursor-pointer appearance-none p-2 w-full"
+              >
+                {Object.keys(rates).map(curr => (
+                  <option key={curr} value={curr}>
+                    {curr}
+                  </option>
+                ))}
+              </select>
+              <span
+                className={`${lastUpdate ? 'absolute right-1 top-1/2 -translate-1/2 ' : 'hidden'}`}>
+                 &#10095;
+              </span>
+            </div>
+            <div className="text-tlnk-blue text-3xl bg-gray-100 relative">
+              {formatNumberString(amount)}
+            </div>
+          </div>
+          <div className="flex items-baseline justify-between gap-2 min-h-[38px]">
+            <div className="relative w-1/2">
+              <select
+                id="targetCurrency"
+                value={targetCurrency}
+                onChange={e => setTargetCurrency(e.target.value)}
+                className="text-xl cursor-pointer appearance-none p-2 w-full"
+              >
+                {Object.keys(rates).map(curr => (
+                  <option key={curr} value={curr}>
+                    {curr}
+                  </option>
+                ))}
+              </select>
+              <span
+                className={`${lastUpdate ? 'absolute right-1 top-1/2 -translate-1/2 ' : 'hidden'}`}>
+                 &#10095;
+              </span>
+            </div>
+            <div className="text-3xl place-self-end bg-gray-100 relative">
+              {formatNumberString(converted)}
+            </div>
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-2 min-h-[38px]">
-          <select
-            id="targetCurrency"
-            value={targetCurrency}
-            onChange={e => setTargetCurrency(e.target.value)}
-            className="text-xl cursor-pointer"
-          >
-            {Object.keys(rates).map(curr => (
-              <option key={curr} value={curr}>
-                {curr}
-              </option>
-            ))}
-          </select>
-          <div className="text-3xl place-self-end">{formatNumberString(converted)}</div>
-        </div>
-      </div>
 
-      <div className="text-center text-sm text-gray-500">
-        <span>{formatTimeSinceUpdate()}</span>
-        <button onClick={fetchRates} aria-label="Reload rates"
-                className={`text-lg m-2 cursor-pointer ${loading ? 'animate-spin' : ''}`}>
-          &#x21BB;
-        </button>
+        <div className="text-center text-sm text-gray-500">
+          <span>{formatTimeSinceUpdate()}</span>
+          <button onClick={fetchRates} aria-label="Reload rates"
+                  className={`text-lg m-2 cursor-pointer ${loading ? 'animate-spin' : ''}`}>
+            &#x21BB;
+          </button>
+        </div>
       </div>
-    </div>
       <Keypad variant={CalculatorModes.CURRENCY} onKeyPress={handleKeypadPress}/>
     </div>
   );
