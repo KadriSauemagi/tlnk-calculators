@@ -85,11 +85,11 @@ const Keypad: FC<KeypadProps> = ({variant, onKeyPress}) => {
     const buttons = variant === CalculatorModes.MATH ? mathLayout : currencyLayout;
     const gridClasses =
         variant === CalculatorModes.MATH
-            ? 'grid grid-cols-4 gap-2 px-2'
-            : 'grid grid-cols-3 gap-2 px-2 max-w-3/4';
+            ? 'grid grid-cols-4 gap-3 px-3'
+            : 'grid grid-cols-3 gap-3 px-3 max-w-3/4';
 
     return (
-        <div className="w-full bg-white py-6 rounded-t-3xl">
+        <div className="w-full bg-white py-12 rounded-t-3xl">
             <div className={gridClasses}>
                 {buttons.map((btn) => (
                     <button

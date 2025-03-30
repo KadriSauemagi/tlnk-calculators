@@ -49,6 +49,7 @@ const CurrencyCalculator: React.FC = () => {
   }, [amount, sourceCurrency, targetCurrency, rates]);
 
   const handleKeypadPress = (value: string) => {
+    if (amount.length > 10) return;
     if (value === 'clear') {
       setAmount('');
       setConverted('');
@@ -70,8 +71,9 @@ const CurrencyCalculator: React.FC = () => {
   };
 
   return (
-    <div>
-      <div className="flex flex-col gap-6 p-6 my-6">
+    <div className="flex flex-col h-full">
+      <div className="grow flex flex-col h-full">
+      <div className="grow flex flex-col gap-6 p-6 justify-center">
         <div className="grid grid-cols-2 items-center gap-2 min-h-[38px]">
           <select
             id="sourceCurrency"
@@ -111,7 +113,7 @@ const CurrencyCalculator: React.FC = () => {
           &#x21BB;
         </button>
       </div>
-
+    </div>
       <Keypad variant={CalculatorModes.CURRENCY} onKeyPress={handleKeypadPress}/>
     </div>
   );
