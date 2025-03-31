@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Keypad from './Keypad';
 import {CalculatorModes} from '../types/types';
+import { PiClockFill } from "react-icons/pi";
 
 const handlePostRequest = (calculation: string) => {
     fetch('/api/history', {
@@ -104,7 +105,7 @@ const MathCalc: React.FC = () => {
 
     return (
         <div className="flex flex-col text-right h-full">
-            <div className="grow flex flex-col p-4 justify-end">
+            <div className="grow flex flex-col px-4 justify-end">
                 <div className="my-4">
                     {history.map((entry, index) => (
                         <p key={index}>{entry}</p>
@@ -112,7 +113,7 @@ const MathCalc: React.FC = () => {
                 </div>
                 <div className="text-3xl" data-testid="result">{displayValue || '0'}</div>
                 <div className="text-left">
-                    <button onClick={() => handleGetRequest()}>&#128337;</button>
+                    <button className="text-4xl text-white cursor-pointer hover:drop-shadow-md focus:drop-shadow-md" onClick={() => handleGetRequest()}><PiClockFill /></button>
                 </div>
             </div>
             <Keypad variant={CalculatorModes.MATH} onKeyPress={handleKeypadPress}/>
