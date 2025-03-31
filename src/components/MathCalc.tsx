@@ -110,7 +110,7 @@ const MathCalc: React.FC = () => {
                         <p key={index}>{entry}</p>
                     ))}
                 </div>
-                <div className="text-3xl">{displayValue || '0'}</div>
+                <div className="text-3xl" data-testid="result">{displayValue || '0'}</div>
                 <div className="text-left">
                     <button onClick={() => handleGetRequest()}>&#128337;</button>
                 </div>

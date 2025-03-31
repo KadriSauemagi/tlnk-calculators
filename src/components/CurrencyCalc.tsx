@@ -84,6 +84,7 @@ const CurrencyCalculator: React.FC = () => {
                 value={sourceCurrency}
                 onChange={e => setSourceCurrency(e.target.value)}
                 className="text-xl cursor-pointer appearance-none p-2 w-full"
+                data-testid="source-currency"
               >
                 {Object.keys(rates).map(curr => (
                   <option key={curr} value={curr}>
@@ -96,7 +97,7 @@ const CurrencyCalculator: React.FC = () => {
                  &#10095;
               </span>
             </div>
-            <div className="text-tlnk-blue text-3xl bg-gray-100 relative">
+            <div className="text-tlnk-blue text-3xl bg-gray-100 relative" data-testid="amount">
               {formatNumberString(amount)}
             </div>
           </div>
@@ -107,6 +108,7 @@ const CurrencyCalculator: React.FC = () => {
                 value={targetCurrency}
                 onChange={e => setTargetCurrency(e.target.value)}
                 className="text-xl cursor-pointer appearance-none p-2 w-full"
+                data-testid="target-currency"
               >
                 {Object.keys(rates).map(curr => (
                   <option key={curr} value={curr}>
@@ -119,7 +121,7 @@ const CurrencyCalculator: React.FC = () => {
                  &#10095;
               </span>
             </div>
-            <div className="text-3xl place-self-end bg-gray-100 relative">
+            <div className="text-3xl place-self-end bg-gray-100 relative" data-testid="converted">
               {formatNumberString(converted)}
             </div>
           </div>
@@ -127,7 +129,9 @@ const CurrencyCalculator: React.FC = () => {
 
         <div className="text-center text-sm text-gray-500">
           <span>{formatTimeSinceUpdate()}</span>
-          <button onClick={fetchRates} aria-label="Reload rates"
+          <button onClick={fetchRates}
+                  aria-label="Reload rates"
+                  data-testid="reload-rates"
                   className={`text-lg m-2 cursor-pointer ${loading ? 'animate-spin' : ''}`}>
             &#x21BB;
           </button>

@@ -98,6 +98,7 @@ const Keypad: FC<KeypadProps> = ({variant, onKeyPress}) => {
                         className={`cursor-pointer rounded p-4 text-center text-4xl
                         active:bg-gray-100 hover:bg-gray-100
                         ${btn.classes ?? ''}`}
+                        data-testid={btn.value}
                         onClick={() => handleButtonClick(btn.value)}
                     >
                         {btn.label}
