@@ -1,5 +1,4 @@
-import React from 'react';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {CalculatorMode, CalculatorModes} from '../types/types';
 import {ToggleSwitch} from './ToggleSwitch';
 import MathCalc from "./MathCalc";

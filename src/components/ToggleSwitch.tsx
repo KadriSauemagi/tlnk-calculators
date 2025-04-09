@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { CalculatorMode, CalculatorModes } from '../types/types';
 
 interface ToggleSwitchProps {

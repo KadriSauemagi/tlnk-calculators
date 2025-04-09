@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import Keypad from './Keypad';
 import {CalculatorModes} from '../types/types';
 import formatNumberString from "../utils/formatNumber";
@@ -50,7 +50,6 @@ const CurrencyCalculator: React.FC = () => {
 
   const handleKeypadPress = (value: string) => {
     if (value === 'equals') return;
-
     else if (value === 'clear') {
       setAmount('');
       setConverted('');
@@ -58,9 +57,13 @@ const CurrencyCalculator: React.FC = () => {
     } else if (value === 'backspace') {
       setAmount(prev => prev.slice(0, -1));
       return;
-    } else if (amount.length <= 10) {
-      setAmount(prev => prev + value);
     }
+    setAmount(prev => {
+      if (prev.length <= 9) {
+        return prev + value;
+      }
+      return prev;
+    });
   };
 
   const formatTimeSinceUpdate = () => {
